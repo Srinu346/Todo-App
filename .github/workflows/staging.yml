@@ -2,7 +2,7 @@ name: Deploy using Docker
 
 on: 
   push: 
-    branch : [ main ]
+    branches : [ main ]
 
 jobs:
   redeploy_everything:
@@ -15,8 +15,10 @@ jobs:
           chmod 700 ~/ssh_key
       - name: Code Checkout
         uses : actions/checkout@v4.2.2
-      - name: Docker Compose
-        uses : hoverkraft-tech/compose-action@40041ff1b97dbf152cd2361138c2b03fa29139df
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
+      - name: Run Docker Compose Locally
+        uses: hoverkraft-tech/compose-action@v1
         with: 
           compose-file: "./docker-compose.yml"
-          up-flags: "build , detach"
+          up-flags: "--build -d"
