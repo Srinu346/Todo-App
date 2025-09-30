@@ -1,0 +1,22 @@
+name: Deploy using Docker
+
+on: 
+  push: 
+    branch : [ main ]
+
+jobs:
+  redeploy_everything:
+    runs-on: ubuntu-latest
+    name: Deploying Everything To Server
+    steps: 
+      - name: Step Up SSH Key 
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 700 ~/ssh_key
+      - name: Code Checkout
+        uses : actions/checkout@v4.2.2
+      - name: Docker Compose
+        uses : hoverkraft-tech/compose-action@40041ff1b97dbf152cd2361138c2b03fa29139df
+        with: 
+          compose-file: "../../docker-compose.yml"
+          up-flags: "build , detach"
