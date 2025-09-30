@@ -18,7 +18,7 @@ jobs:
       - name: Set up Docker Compose
         uses: docker/setup-compose-action@v1
       - name: Run Docker Compose Locally
-        uses: hoverkraft-tech/compose-action@v1
+        uses: hoverkraft-tech/compose-action@40041ff1b97dbf152cd2361138c2b03fa29139df
         with: 
           compose-file: "./docker-compose.yml"
           up-flags: "--build -d"
