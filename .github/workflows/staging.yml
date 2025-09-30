@@ -22,3 +22,7 @@ jobs:
         with: 
           compose-file: "./docker-compose.yml"
           up-flags: "--build -d"
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@3.110.215.239 \
+          "cd ~/NextApp/cicd && git pull origin master && docker compose up"
